@@ -20,11 +20,15 @@ export const PerformanceChart = () => {
 export const AgentHeader = () => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   return (
-    <>
-      <span className="font-bold">Agente - 3650 </span>
-      <ClockIcon className="h-10" />
-      <div>13:16</div>      
-      <Button onPress={onOpen}><PlayPauseIcon className="h-10 text-primary"/></Button>
+    <div className='grid grid-cols-12'>
+      <div className='col-span-3'></div>
+      <div className="flex flex-row col-span-8 space-x-4 items-center ">
+        <span className="font-bold">Agente - 3650 </span>
+        <ClockIcon className="h-10" />
+        <div>13:16</div>      
+        <Button onPress={onOpen}><PlayPauseIcon className="h-10 text-primary"/></Button>
+      </div>
+      <ArrowRightStartOnRectangleIcon className="col-span-1 h-10 "/>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -49,14 +53,14 @@ export const AgentHeader = () => {
             </>
           )}
         </ModalContent>
-      </Modal>
-    </>
+      </Modal>           
+    </div>
   )
 }
 
 export const Sidebar = () => {
   return(
-    <div className="col-span-4 h-screen text-black bg-primary space-y-2 px-2 py-2">
+    <div className="text-black bg-primary space-y-2 px-2 py-2">
       <Company />
       <div className="flex flex-row align-center h- space-x-2">
         <div className="flex  w-2/12 justify-center  py-1 "></div>

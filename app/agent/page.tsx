@@ -1,24 +1,12 @@
 import Image from "next/image";
-import {useState, useEffect} from 'react'
 import {PerformanceChart, AgentHeader, Sidebar} from './components'
 import { ArrowRightStartOnRectangleIcon} from "@heroicons/react/24/solid"
 
 
 export default function Home() {
   
-  return (
-    <div className="bg-white min-h-screen font-[family-name:var(--font-geist-sans)] text-primary">
-      <header className="grid grid-cols-12 w-full h-12 shadow-sm shadow-primary">
-        <div className="col-span-3" ></div>
-        <div className="flex flex-row col-span-8 space-x-4 items-center">
-          <AgentHeader />
-        </div>
-        <ArrowRightStartOnRectangleIcon className="col-span-1 h-10"/>
-      </header>
-      <main className="grid grid-cols-12">
-        <div className="col-span-4 bg-primary">
-          <Sidebar />
-        </div>
+  return (      
+      <div className="grid grid-cols-12 ">
         <div className="col-span-8 grid grid-rows-12 w-full">
           <div className="row-span-3">
             <DailyPanel />
@@ -30,11 +18,7 @@ export default function Home() {
             <MonthlyPanel />
           </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        
-      </footer>
-    </div>
+      </div>
   );
 }
 
