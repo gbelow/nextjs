@@ -6,19 +6,17 @@ import { ArrowRightStartOnRectangleIcon} from "@heroicons/react/24/solid"
 export default function Home() {
   
   return (      
-      <div className="grid grid-cols-12 ">
-        <div className="col-span-8 grid grid-rows-12 w-full">
-          <div className="row-span-3">
-            <DailyPanel />
-          </div>
-          <div className="row-span-3">
-            <PerformanceChart/>
-          </div>
-          <div className="row-span-2">
-            <MonthlyPanel />
-          </div>
-        </div>
+    <div className="flex flex-col space-y-4">
+      <div className="">
+        <DailyPanel />
       </div>
+      <div className="">
+        <PerformanceChart/>
+      </div>
+      <div className="">
+        <MonthlyPanel />
+      </div>
+    </div>
   );
 }
 

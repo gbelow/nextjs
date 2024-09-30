@@ -1,7 +1,10 @@
 'use client'
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, } from "@nextui-org/react"
-import {ClockIcon, PlayPauseIcon, ArrowRightStartOnRectangleIcon} from "@heroicons/react/24/solid"
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Accordion, AccordionItem} from "@nextui-org/react"
+import {ClockIcon, PlayPauseIcon, ArrowRightStartOnRectangleIcon, HomeIcon} from "@heroicons/react/24/solid"
+import Link from "next/link"
+import  {useRouter} from "next/navigation"
+import {useState, FC} from 'react'
 
 
 
@@ -18,17 +21,22 @@ export const PerformanceChart = () => {
 }
 
 export const AgentHeader = () => {
+  const router = useRouter()
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
   return (
     <div className='grid grid-cols-12'>
-      <div className='col-span-3'></div>
+      <div className='col-span-3 pl-4'>
+      <Button isIconOnly color="primary" aria-label="home" onPress={() => router.push('/agent')}>
+        <HomeIcon />
+      </Button>
+      </div>
       <div className="flex flex-row col-span-8 space-x-4 items-center ">
         <span className="font-bold">Agente - 3650 </span>
         <ClockIcon className="h-10" />
         <div>13:16</div>      
         <Button onPress={onOpen}><PlayPauseIcon className="h-10 text-primary"/></Button>
       </div>
-      <ArrowRightStartOnRectangleIcon className="col-span-1 h-10 "/>
+      <Link href="/login"><ArrowRightStartOnRectangleIcon className="col-span-1 h-10 "/></Link>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
@@ -59,27 +67,54 @@ export const AgentHeader = () => {
 }
 
 export const Sidebar = () => {
+
+  const companies = [
+    {label: 'ACEM PRIME', mass: true, clients: [{name: 'José Alves', time: '1:57'}] },
+    {label: 'INFORMAT', mass: false, clients: [] },
+    {label: 'MUVNET', mass: false, clients: [] },
+    {label: 'BRPHONIA', mass: false, clients: [] },
+  ]
   return(
-    <div className="text-black bg-primary space-y-2 px-2 py-2">
-      <Company />
-      <div className="flex flex-row align-center h- space-x-2">
-        <div className="flex  w-2/12 justify-center  py-1 "></div>
-        <div className="flex border border-black rounded w-8/12 justify-center bg-amber-200 py-1  text-sm">José Alves</div>
-        <div className="flex border border-black bg-amber-200 w-1/12 rounded justify-center align-center text-sm">1:57</div>
-      </div>
-      <Company />          
+    <div className="bg-primary px-2 py-2 text-primary overflow-auto">
+      <Accordion isCompact showDivider selectionMode='multiple' itemClasses={{base: 'bg-zinc-100 my-1'}} >
+      {
+        ...companies.map(el=> 
+          <AccordionItem key={el.label} aria-label={'Accordion ' + el.label} startContent={<Company label={el.label} mass={el.mass} count={el.clients.length}/>}>
+            <Client name='+ Novo Atendimento'/>
+            {
+              ...el.clients.map(item => 
+                <Client name={item.name} timer={item.time}/>
+              )
+            }
+          </AccordionItem>
+        )
+      }
+
+      </Accordion>
     </div>
   )
 }
 
-const Company = () => {
+const Company = ({label, mass, count}:{label:string, mass:boolean, count:number}) => {
   return(
-    <div className="flex flex-row align-center h- space-x-2 ">
-      <div className="flex border border-black bg-red-500 h-6 w-1/12 rounded justify-center align-center">!!</div>
-      <div className="flex border border-black rounded bg-white w-8/12 justify-center bg-white px-2 py-1 ">ACEM PRIME</div>
-      <div className="flex border border-black bg-red-500 h-6 w-1/12 rounded justify-center align-center">5</div>
-      <div className="flex border border-black bg-green-500 h-6 w-1/12 rounded justify-center align-center">+</div>
+    <div className="flex flex-row w-full justify-between">
+      <div className={"px-2 "}>{mass ? '!!' : '  '}</div>
+      <div className="justify-center px-2 py-1 ">{label}</div>
+      <div className=""><p>{count}</p></div>
     </div>
   )
 }
+
+const Client = ({name, timer=''}:{name:string, timer?:string}) => {
+  return(
+    <Link href="/agent/triage">
+      <div className="flex flex-row align-center h- space-x-2 shadowsm shadow-black pt-1">
+        <div className="flex  w-2/12 justify-center  py-1 "></div>
+        <div className="flex rounded w-8/12 justify-center py-1  text-sm">{name}</div>
+        <div className="flex rounded text-sm px-2">{timer}</div>
+      </div>
+    </Link>
+  )
+}
+
 

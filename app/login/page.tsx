@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link"
 
 export default function Login() {
   return (
@@ -16,7 +17,7 @@ export default function Login() {
         <div className="flex flex-col">
           <input className="m-2 p-2 rounded" type="text" placeholder="Email"></input>
           <input className="m-2 p-2 rounded" type="text" placeholder="Senha"></input>
-          <a className="m-2 p-2 rounded bg-white text-black justify-center flex" href="/" >Entrar</a>
+          <Link className="m-2 p-2 rounded bg-white text-black justify-center flex" href="/agent/triage" >Entrar</Link>
           <button className="m-2 p-2 rounded bg-black " >Entrar com Microsoft</button>
         </div>
         
