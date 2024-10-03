@@ -8,7 +8,7 @@ export default function ServiceLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col grow h-full'>
       <ServiceNavBar/>
       <div className='col-span-8 bg-white flex flex-row p-2 space-x-4 justify-center'>
         <Card className="bg-zinc-300">
@@ -30,8 +30,8 @@ export default function ServiceLayout({
           </CardBody>
         </Card>
       </div>
-      <div>
-        {children}      
+      <div className='flex flex-col grow h-full'>
+        {children}
       </div>
     </div>
   );

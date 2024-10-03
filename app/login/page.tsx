@@ -17,7 +17,7 @@ export default function Login() {
         <div className="flex flex-col">
           <input className="m-2 p-2 rounded" type="text" placeholder="Email"></input>
           <input className="m-2 p-2 rounded" type="text" placeholder="Senha"></input>
-          <Link className="m-2 p-2 rounded bg-white text-black justify-center flex" href="/agent/triage" >Entrar</Link>
+          <Link className="m-2 p-2 rounded bg-white text-black justify-center flex" href="/agent" >Entrar</Link>
           <button className="m-2 p-2 rounded bg-black " >Entrar com Microsoft</button>
         </div>
         

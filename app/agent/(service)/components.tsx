@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react";
-import { Card, CardBody } from "@nextui-org/react";
+import { useState, useMemo } from "react";
+import { Card, CardBody, Autocomplete, AutocompleteItem, Button } from "@nextui-org/react";
 import Link  from 'next/link'
 
 export const ServiceNavBar = () => {
@@ -16,9 +16,6 @@ export const ServiceNavBar = () => {
       id: "procedure",
       label: "Procedimento"},
     {
-      id: "reporting",
-      label: "Documentação"},
-    {
       id: "finish",
       label: "Finalizar"}
   ];
@@ -28,10 +25,30 @@ export const ServiceNavBar = () => {
       {tabs.map(el => 
         <Link href={'/agent/'+el.id}>
           <Card>
-            <CardBody><p className="text-primary">{el.label}</p></CardBody>
+            <CardBody><p className="text-primary">{el.label + '  >> '} </p></CardBody>
           </Card>
         </Link>
         )}
     </div>
   )
 }
+
+export const IssueSelector = ({items}: {items:{id: string, label:string}[]}) => {
+  return (
+    <Autocomplete
+      variant={'bordered'}
+      isRequired
+      label=""
+      defaultItems={items}
+      placeholder="Search"
+      defaultSelectedKey=""
+      className="flex h-11 max-w-xs my-1"
+      classNames={{
+        popoverContent: 'bg-zinc-500 border-primary border rounded-medium',
+        base: 'flex shrink border-primary border rounded-medium'
+      }}
+    >
+      {items.map((item) => <AutocompleteItem key={item.id}>{item.label}</AutocompleteItem>)}
+    </Autocomplete>
+  );
+} 
